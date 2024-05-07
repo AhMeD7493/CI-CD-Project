@@ -1,0 +1,13 @@
+---
+- hosts: prod
+  user: Ahmed
+
+  tasks:
+    - name: deploy cafe app on kubernetes
+      command: kubectl apply -f ~/docker/cafe-app-deploy.yml
+    
+    - name: create service for cafe app 
+      command: kubectl apply -f ~/docker/cafe-app-service.yml
+    
+    - name: update deployment with new pods if image updated in docker hub
+      command: kubectl rollout restart deployment.apps/mylab-cafe-app
